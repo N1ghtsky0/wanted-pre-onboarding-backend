@@ -10,4 +10,7 @@ public interface UserRepo extends JpaRepository<User, Integer> {
     Boolean existsBySignInId(String signInId);
 
     Optional<User> findBySignInId(String signInId);
+
+    Optional<User> findByUuid(String uuid);
+
 }
