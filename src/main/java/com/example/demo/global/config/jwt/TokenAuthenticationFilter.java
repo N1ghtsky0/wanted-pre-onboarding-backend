@@ -71,7 +71,7 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
         String[] split = Optional.ofNullable(token)
                 .filter(subject -> subject.length() >= 10)
                 .map(tokenProvider::validTokenAndGetSubject)
-                .orElse("anonymous:anonymous")
+                .orElse("anonymous:ANONYMOUS")
                 .split(":");
 
         return new User(split[0], "", List.of(new SimpleGrantedAuthority(split[1])));
