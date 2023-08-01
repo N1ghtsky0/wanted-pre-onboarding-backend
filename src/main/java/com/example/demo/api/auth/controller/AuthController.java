@@ -2,7 +2,6 @@ package com.example.demo.api.auth.controller;
 
 import com.example.demo.api.auth.dto.RequestRegister;
 import com.example.demo.api.auth.service.AuthService;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
