@@ -1,6 +1,8 @@
 package com.example.demo.api.auth.controller;
 
 import com.example.demo.api.auth.dto.RequestRegister;
+import com.example.demo.api.auth.dto.RequestSignIn;
+import com.example.demo.api.auth.dto.ResponseSignIn;
 import com.example.demo.api.auth.service.AuthService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +25,13 @@ public class AuthController {
     public ResponseEntity<?> register (@RequestBody @Valid RequestRegister requestRegister) {
         authService.register(requestRegister);
         return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @PostMapping("/sign-in")
+    public ResponseEntity<ResponseSignIn> signIn(@RequestBody @Valid RequestSignIn requestSignIn) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(authService.signIn(requestSignIn));
     }
 
 }

@@ -1,8 +1,11 @@
 package com.example.demo.api.auth.service;
 
 import com.example.demo.api.auth.dto.RequestRegister;
+import com.example.demo.api.auth.dto.RequestSignIn;
+import com.example.demo.api.auth.dto.ResponseSignIn;
 import com.example.demo.api.user.model.User;
 import com.example.demo.api.user.repository.UserRepo;
+import com.example.demo.global.config.jwt.TokenProvider;
 import com.example.demo.global.exception.BusinessException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,6 +21,7 @@ public class AuthServiceImpl implements AuthService {
 
     private final UserRepo userRepo;
     private final PasswordEncoder passwordEncoder;
+    private final TokenProvider tokenProvider;
 
     @Override
     public void register(RequestRegister requestRegister) {
@@ -35,5 +39,19 @@ public class AuthServiceImpl implements AuthService {
                 .nickName(requestRegister.getNickName())
                 .build());
 
+    }
+
+    @Override
+    public ResponseSignIn signIn(RequestSignIn requestSignIn) {
+        User user = userRepo.findBySignInId(requestSignIn.getSignInId())
+                .filter(info -> passwordEncoder.matches(requestSignIn.getSignInPwd(), info.getSignInPwd()))
+                .orElseThrow(() -> new BusinessException(NOT_FOUND_USER_INFO));
+
+        String accessToken = tokenProvider.createToken(String.format("%s:%s", user.getNickName(), "USER"));
+
+        return ResponseSignIn.builder()
+                .nickName(user.getNickName())
+                .accessToken(accessToken)
+                .build();
     }
 }
