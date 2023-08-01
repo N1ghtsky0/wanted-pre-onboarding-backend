@@ -1,0 +1,24 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: wanted-pre-onboarding-backend
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: ${DATABASE_USERNAME}
+    url: jdbc:mysql://${DATABASE_HOST}:${DATABASE_PORT}/${DATABASE_SCHEMA}?useSSL=false&allowPublicKeyRetrieval=true
+    password: ${DATABASE_PASSWORD}
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        format_sql: true
+    hibernate:
+      ddl-auto: create
+
+TOKEN:
+  SECRET_KEY: ${SECRET_KEY}
+  ISSUER: ${ISSUER}
+  AUDIENCE: ${AUDIENCE}
+  ACCESS_TOKEN_EXPIRE_TIME: ${ACCESS_TOKEN_EXPIRE_TIME}
