@@ -50,7 +50,7 @@ public class AuthServiceImpl implements AuthService {
         String accessToken = tokenProvider.createToken(String.format("%s:%s", user.getNickName(), "USER"));
 
         return ResponseSignIn.builder()
-                .nickName(user.getNickName())
+                .uid(user.getUuid())
                 .accessToken(accessToken)
                 .build();
     }

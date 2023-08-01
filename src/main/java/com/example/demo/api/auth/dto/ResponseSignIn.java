@@ -7,7 +7,7 @@ import lombok.Getter;
 @Getter
 public class ResponseSignIn {
 
-    private String nickName;
+    private String uid;
     private String accessToken;
 
 }
