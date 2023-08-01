@@ -26,4 +26,7 @@ public class User {
     @Column(nullable = false, length = 36)
     private String uuid;
 
+    @Column(nullable = true)
+    private String nickName;
+
 }

@@ -32,6 +32,7 @@ public class AuthServiceImpl implements AuthService {
                 .signInId(requestRegister.getSignInId())
                 .signInPwd(passwordEncoder.encode(requestRegister.getSignInPwd()))
                 .uuid(UUID.randomUUID().toString())
+                .nickName(requestRegister.getNickName())
                 .build());
 
     }
