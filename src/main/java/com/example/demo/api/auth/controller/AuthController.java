@@ -21,8 +21,7 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/register")
-    @Tag(name = "Auth", description = "회원가입")
-    public ResponseEntity<?> register (@RequestBody @Valid RequestRegister requestRegister) {
+    public ResponseEntity<?> register(@RequestBody @Valid RequestRegister requestRegister) {
         authService.register(requestRegister);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
