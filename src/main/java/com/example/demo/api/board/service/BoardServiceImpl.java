@@ -52,26 +52,25 @@ public class BoardServiceImpl implements BoardService {
     @Override
     @Transactional
     public void updateBoard(RequestUpdateBoard requestUpdateBoard) {
-        Board board = boardRepo.findById(requestUpdateBoard.getBoardId())
-                .orElseThrow(() -> new BusinessException(NOT_FOUND_BOARD));
-
-        if (!board.checkAuthor(userRepo.findByUuid(requestUpdateBoard.getUserUuid()).orElseThrow(() -> new BusinessException(NOT_FOUND_USER)))) {
-            throw new BusinessException(FORBIDDEN_AUTHOR);
-        }
-
+        Board board = checkAuthorization(requestUpdateBoard.getBoardId(), requestUpdateBoard.getUserUuid());
         board.updateContent(requestUpdateBoard.getContent());
     }
 
     @Override
     public void deleteBoard(RequestDeleteBoard requestDeleteBoard) {
-        Board board = boardRepo.findById(requestDeleteBoard.getBoardId())
+        Board board = checkAuthorization(requestDeleteBoard.getBoardId(), requestDeleteBoard.getUserUuid());
+        boardRepo.delete(board);
+    }
+
+    private Board checkAuthorization(int boardId, String userUuid) {
+        Board board = boardRepo.findById(boardId)
                 .orElseThrow(() -> new BusinessException(NOT_FOUND_BOARD));
 
-        if (!board.checkAuthor(userRepo.findByUuid(requestDeleteBoard.getUserUuid()).orElseThrow(() -> new BusinessException(NOT_FOUND_USER)))) {
+        if (!board.checkAuthor(userRepo.findByUuid(userUuid).orElseThrow(() -> new BusinessException(NOT_FOUND_USER)))) {
             throw new BusinessException(FORBIDDEN_AUTHOR);
         }
 
-        boardRepo.delete(board);
+        return board;
     }
 
 }
