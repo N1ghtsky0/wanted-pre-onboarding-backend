@@ -1,10 +1,7 @@
 package com.example.demo.api.board.controller;
 
 import com.example.demo.api.board.dao.getAllBoardMapping;
-import com.example.demo.api.board.dto.RequestAddBoard;
-import com.example.demo.api.board.dto.RequestUpdateBoard;
-import com.example.demo.api.board.dto.ResponseAddBoard;
-import com.example.demo.api.board.dto.ResponseGetBoard;
+import com.example.demo.api.board.dto.*;
 import com.example.demo.api.board.service.BoardService;
 import com.example.demo.global.annotation.AnonymousAuthorize;
 import com.example.demo.global.annotation.UserAuthorize;
@@ -42,8 +39,14 @@ public class BoardController {
     }
 
     @PatchMapping
-    public ResponseEntity<RequestUpdateBoard> updateBoard(@RequestBody @Valid RequestUpdateBoard requestUpdateBoard) {
+    public ResponseEntity<?> updateBoard(@RequestBody @Valid RequestUpdateBoard requestUpdateBoard) {
         boardService.updateBoard(requestUpdateBoard);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    @DeleteMapping
+    public ResponseEntity<?> deleteBoard(@RequestBody @Valid RequestDeleteBoard requestDeleteBoard) {
+        boardService.deleteBoard(requestDeleteBoard);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 

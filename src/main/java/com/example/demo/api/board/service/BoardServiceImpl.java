@@ -1,10 +1,7 @@
 package com.example.demo.api.board.service;
 
 import com.example.demo.api.board.dao.getAllBoardMapping;
-import com.example.demo.api.board.dto.RequestAddBoard;
-import com.example.demo.api.board.dto.RequestUpdateBoard;
-import com.example.demo.api.board.dto.ResponseAddBoard;
-import com.example.demo.api.board.dto.ResponseGetBoard;
+import com.example.demo.api.board.dto.*;
 import com.example.demo.api.board.model.Board;
 import com.example.demo.api.board.repository.BoardRepo;
 import com.example.demo.api.user.repository.UserRepo;
@@ -63,6 +60,18 @@ public class BoardServiceImpl implements BoardService {
         }
 
         board.updateContent(requestUpdateBoard.getContent());
+    }
+
+    @Override
+    public void deleteBoard(RequestDeleteBoard requestDeleteBoard) {
+        Board board = boardRepo.findById(requestDeleteBoard.getBoardId())
+                .orElseThrow(() -> new BusinessException(NOT_FOUND_BOARD));
+
+        if (!board.checkAuthor(userRepo.findByUuid(requestDeleteBoard.getUserUuid()).orElseThrow(() -> new BusinessException(NOT_FOUND_USER)))) {
+            throw new BusinessException(FORBIDDEN_AUTHOR);
+        }
+
+        boardRepo.delete(board);
     }
 
 }
