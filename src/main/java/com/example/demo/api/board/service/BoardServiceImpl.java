@@ -3,6 +3,7 @@ package com.example.demo.api.board.service;
 import com.example.demo.api.board.dao.getAllBoardMapping;
 import com.example.demo.api.board.dto.RequestAddBoard;
 import com.example.demo.api.board.dto.ResponseAddBoard;
+import com.example.demo.api.board.dto.ResponseGetBoard;
 import com.example.demo.api.board.model.Board;
 import com.example.demo.api.board.repository.BoardRepo;
 import com.example.demo.api.user.repository.UserRepo;
@@ -36,6 +37,17 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public Page<getAllBoardMapping> getAllBoard(Pageable pageable) {
         return boardRepo.selectAllBoard(pageable);
+    }
+
+    @Override
+    public ResponseGetBoard getBoard(int id) {
+        Board board = boardRepo.findById(id).orElseThrow(() -> new BusinessException(NOT_FOUND_BOARD));
+        return ResponseGetBoard.builder()
+                .id(board.getId())
+                .title(board.getTitle())
+                .content(board.getContent())
+                .createdAt(board.getCreatedAt())
+                .build();
     }
 
 }

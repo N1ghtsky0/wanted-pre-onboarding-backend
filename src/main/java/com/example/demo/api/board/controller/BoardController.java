@@ -3,6 +3,7 @@ package com.example.demo.api.board.controller;
 import com.example.demo.api.board.dao.getAllBoardMapping;
 import com.example.demo.api.board.dto.RequestAddBoard;
 import com.example.demo.api.board.dto.ResponseAddBoard;
+import com.example.demo.api.board.dto.ResponseGetBoard;
 import com.example.demo.api.board.service.BoardService;
 import com.example.demo.global.annotation.AnonymousAuthorize;
 import com.example.demo.global.annotation.UserAuthorize;
@@ -31,6 +32,12 @@ public class BoardController {
     @AnonymousAuthorize
     public ResponseEntity<Page<getAllBoardMapping>> getAllBoard(Pageable pageable) {
         return ResponseEntity.status(HttpStatus.OK).body(boardService.getAllBoard(pageable));
+    }
+
+    @GetMapping("/{id}")
+    @AnonymousAuthorize
+    public ResponseEntity<ResponseGetBoard> getBoard(@PathVariable("id") int id) {
+        return ResponseEntity.status(HttpStatus.OK).body(boardService.getBoard(id));
     }
 
 }
