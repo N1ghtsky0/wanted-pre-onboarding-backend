@@ -18,6 +18,7 @@ public enum ErrorCode {
     // board
     NOT_FOUND_USER("유저 정보를 찾을 수 없습니다.", NOT_FOUND),
     NOT_FOUND_BOARD("해당 게시글을 찾을 수 없습니다.", NOT_FOUND),
+    FORBIDDEN_AUTHOR("다른 사람의 게시글을 수정하거나 삭제할 수 없습니다.", FORBIDDEN),
 
     // filter
     EXPIRE_TOKEN("이미 만료된 토큰입니다.", FORBIDDEN),

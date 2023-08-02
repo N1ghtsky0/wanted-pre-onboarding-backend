@@ -39,4 +39,13 @@ public class Board {
 
     @LastModifiedDate
     private LocalDateTime updatedAt;
+
+    public Boolean checkAuthor(User author) {
+        return user.equals(author);
+    }
+
+    public void updateContent(String newContent) {
+        this.content = newContent;
+    }
+
 }

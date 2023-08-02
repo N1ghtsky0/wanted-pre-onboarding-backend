@@ -2,6 +2,7 @@ package com.example.demo.api.board.controller;
 
 import com.example.demo.api.board.dao.getAllBoardMapping;
 import com.example.demo.api.board.dto.RequestAddBoard;
+import com.example.demo.api.board.dto.RequestUpdateBoard;
 import com.example.demo.api.board.dto.ResponseAddBoard;
 import com.example.demo.api.board.dto.ResponseGetBoard;
 import com.example.demo.api.board.service.BoardService;
@@ -38,6 +39,12 @@ public class BoardController {
     @AnonymousAuthorize
     public ResponseEntity<ResponseGetBoard> getBoard(@PathVariable("id") int id) {
         return ResponseEntity.status(HttpStatus.OK).body(boardService.getBoard(id));
+    }
+
+    @PatchMapping
+    public ResponseEntity<RequestUpdateBoard> updateBoard(@RequestBody @Valid RequestUpdateBoard requestUpdateBoard) {
+        boardService.updateBoard(requestUpdateBoard);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
 }

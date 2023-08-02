@@ -2,6 +2,7 @@ package com.example.demo.api.board.service;
 
 import com.example.demo.api.board.dao.getAllBoardMapping;
 import com.example.demo.api.board.dto.RequestAddBoard;
+import com.example.demo.api.board.dto.RequestUpdateBoard;
 import com.example.demo.api.board.dto.ResponseAddBoard;
 import com.example.demo.api.board.dto.ResponseGetBoard;
 import com.example.demo.api.board.model.Board;
@@ -12,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import static com.example.demo.global.exception.ErrorCode.*;
 
@@ -48,6 +50,19 @@ public class BoardServiceImpl implements BoardService {
                 .content(board.getContent())
                 .createdAt(board.getCreatedAt())
                 .build();
+    }
+
+    @Override
+    @Transactional
+    public void updateBoard(RequestUpdateBoard requestUpdateBoard) {
+        Board board = boardRepo.findById(requestUpdateBoard.getBoardId())
+                .orElseThrow(() -> new BusinessException(NOT_FOUND_BOARD));
+
+        if (!board.checkAuthor(userRepo.findByUuid(requestUpdateBoard.getUserUuid()).orElseThrow(() -> new BusinessException(NOT_FOUND_USER)))) {
+            throw new BusinessException(FORBIDDEN_AUTHOR);
+        }
+
+        board.updateContent(requestUpdateBoard.getContent());
     }
 
 }

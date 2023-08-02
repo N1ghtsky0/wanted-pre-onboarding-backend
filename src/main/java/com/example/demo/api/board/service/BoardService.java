@@ -2,6 +2,7 @@ package com.example.demo.api.board.service;
 
 import com.example.demo.api.board.dao.getAllBoardMapping;
 import com.example.demo.api.board.dto.RequestAddBoard;
+import com.example.demo.api.board.dto.RequestUpdateBoard;
 import com.example.demo.api.board.dto.ResponseAddBoard;
 import com.example.demo.api.board.dto.ResponseGetBoard;
 import org.springframework.data.domain.Page;
@@ -14,5 +15,7 @@ public interface BoardService {
     Page<getAllBoardMapping> getAllBoard(Pageable pageable);
 
     ResponseGetBoard getBoard(int id);
+
+    void updateBoard(RequestUpdateBoard requestUpdateBoard);
 
 }
