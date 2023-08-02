@@ -13,8 +13,8 @@ public interface BoardRepo extends JpaRepository<Board, Integer> {
             "B.id as id, " +
             "B.title as title, " +
             "B.content as content, " +
-            "B.createdAt as createAt, " +
-            "B.updatedAt as updateAt, " +
+            "B.createdAt as createdAt, " +
+            "B.updatedAt as updatedAt, " +
             "U.nickName as author " +
             "from Board as B " +
             "join User U on B.user.id = U.id")
