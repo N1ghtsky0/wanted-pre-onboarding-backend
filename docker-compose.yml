@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+  database:
+    container_name: db-mysql
+    image: 'mysql:8'
+    ports:
+      - '33306:3306'
+    command: --init-file /data/application/init.sql
+    volumes:
+      - './init.sql:/data/application/init.sql'
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+
+  my-app:
+    depends_on:
+      - database
+    container_name: my-app
+    ports:
+      - '8080:8080'
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
