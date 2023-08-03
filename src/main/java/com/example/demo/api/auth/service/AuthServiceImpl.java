@@ -43,6 +43,11 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public ResponseSignIn signIn(RequestSignIn requestSignIn) {
+
+        if (!requestSignIn.checkEmailFormat()) {
+            throw new BusinessException(BAD_REQUEST_EMAIL_FORMAT);
+        }
+
         User user = userRepo.findBySignInId(requestSignIn.getSignInId())
                 .filter(info -> passwordEncoder.matches(requestSignIn.getSignInPwd(), info.getSignInPwd()))
                 .orElseThrow(() -> new BusinessException(NOT_FOUND_USER_INFO));
