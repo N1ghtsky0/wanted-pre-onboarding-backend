@@ -97,9 +97,7 @@ git clone https://github.com/N1ghtsky0/wanted-pre-onboarding-backend.git
 
 ---
 
-## 구현한 API의 동작을 촬영한 데모 영상 링크 (아래 사진 클릭)
-
-[![Youtube Link](https://github.com/N1ghtsky0/wanted-pre-onboarding-backend/assets/90381800/7207faa3-fa5f-4470-a334-e5b4eb360d7f)](https://youtu.be/Y6rMd_tZvY0)
+## 구현한 API의 동작을 촬영한 데모 영상 링크 ([클릭](https://youtu.be/Y6rMd_tZvY0))
 
 ---
 
