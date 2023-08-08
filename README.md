@@ -210,5 +210,7 @@ git clone https://github.com/N1ghtsky0/wanted-pre-onboarding-backend.git
 ```text
 1. ./src/main/resources 의 application.yml 파일의 spring.profiles.default = docker 로 변경
 
-2. docker-compose up -d
+2. "./gradlew bootjar" 커맨드 실행
+
+3. docker-compose up -d 커맨드 실행
 ```
